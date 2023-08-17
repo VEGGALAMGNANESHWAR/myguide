@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+{% load static %}
+{% load cart_template_tag %}
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <style media="screen">
+
+
+
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+
+        {%if user.username|lower|slice:":5" == "guide" %}
+        <nav class="menu" tabindex="0">
+            <div class="smartphone-menu-trigger"></div>
+            <header class="avatar">
+              <br><br>
+              <h5>NAME</h5>
+              <h2>{{user.username}}</h2>
+            </header>
+            <ul>
+              <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/profile"><span>Dashboard</span></a> </li>
+              <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/Hostel-Guests"><span>Tourist</span></a></li>
+              <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/Hostel-Booking"><span>New Booking</span></a></li>
+            </ul>
+        </nav>
+        <main>
+            <!-- nav start -->
+            <div class="bs-example">
+              <nav class="navbar navbar-expand-md  navbar-dark fixed-top" style="background:#337AB7;">
+
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                  <div class="navbar-nav" style=" margin-left: 90%;">
+
+                    <a href="{% url 'user_logout' %}" class="nav-item nav-link">Logout</a>
+                  </div>
+                </div>
+              </nav>
+            </div>
+            <div class="market-updates">
+                <div class="col-md-4 market-update-gd">
+                    <div class="market-update-block clr-block-1">
+                        <div class="col-md-8 market-update-left">
+                            <h3>{{appointmentcount}}</h3>
+                            <h4>No.of Boocked</h4>
+                        </div>
+                        <div class="col-md-4 market-update-right">
+                        <i class="fa fa-calendar"> </i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            <div class="col-md-4 market-update-gd">
+            <div class="market-update-block clr-block-2">
+                <div class="col-md-8 market-update-left">
+                <h3>{{patientcount}}</h3>
+                <h4>Tourist under you</h4>
+
+                </div>
+                <div class="col-md-4 market-update-right">
+                <i class="fa fa-user-o"></i>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            </div>
+          </div>
+
+         <div class="col-md-4 market-update-gd">
+          <div class="market-update-block clr-block-3">
+            <a class="tg-btn" href="{% url 'add_item' %}">
+            <div class="col-md-8 market-update-left">
+              <h4>ADD Guides</h4>
+            </div>
+            <!-- <div class="col-md-4 market-update-right">
+
+                <i class="fa fa-plus-circle" aria-hidden="true" ></i>
+
+            </div> -->
+          </a>
+            <div class="clearfix"> </div>
+          </div>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+      <br>
+      <br>
+
+      <div>
+
+          {% for product in products %}
+            {% if product.available %}
+              {% if product.poster == user.username %}
+                <h1>Hostel Details </h1>
+              {% else %}
+                <a class="tg-btn" href="{% url 'add_item' %}">
+                  <i class="fa fa-plus-square"></i> <b>Add Item</b>
+                </a>
+              {% endif %}
+            {% else %}
+                <h1>NO Products</h1>
+            {% endif %}
+          {% endfor %}
+
+        </div>
+
+
+
+
+
+    {% comment %} user profile {% endcomment %}
+    {%else%}
+    <nav class="menu" tabindex="0">
+      <div class="smartphone-menu-trigger"></div>
+      <header class="avatar">
+        <br><br>
+        <h6>NAME</h6>
+        <h2>{{user.username}}</h2>
+      </header>
+      <ul>
+        <li tabindex="0" class="icon-dashboard"> <a style="color:white; text-decoration:none;" href="/profile"><span>Dashboard</span></a> </li>
+        <li tabindex="0" class="icon-users"> <a style="color:white; text-decoration:none;" href="/user-payments"><span>Payments</span></a></li>
+        <li tabindex="0" class="icon-calendar"> <a style="color:white; text-decoration:none;" href="/user-status"><span>Status</span></a></li>
+      </ul>
+  </nav>
+  <main>
+    <!-- nav start -->
+    <div class="bs-example">
+      <!-- <nav class="navbar navbar-expand-md  navbar-dark fixed-top" style="background:#337AB7;">
+        <a href="/doctor-dashboard" class="navbar-brand"><img src="{% static 'img/hexa1.png' %}" alt="No Image" style="width:100px;height:40px;"></a> -->
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+          <div class="navbar-nav" style=" margin-left: 90%;">
+
+            <a href="{% url 'user_logout' %}" class="nav-item nav-link">Logout</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="market-updates">
+        <div class="col-md-4 market-update-gd">
+            <div class="market-update-block clr-block-1">
+              <a class="tg-btn" href="{% url 'order_list' %}">
+                <div class="col-md-8 market-update-left">
+                  <h4>Go To Check-in</h4>
+              </div>
+              </a>
+
+
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  </main>
+    {%endif%}
+    {%endif%}
+
+
+
+  <!-- Footer Section End -->
+
+  <!-- Go to Top Link -->
+  <a href="#" class="back-to-top">
+    <i class="lni-chevron-up"></i>
+  </a>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader" id="loader-1"></div>
+  </div>
+  <!-- End Preloader -->
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="{% static 'js/jquery-min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+  <script src="{% static 'js/waypoints.min.js' %}"></script>
+  <script src="{% static 'js/wow.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.slicknav.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+
+
+
+
+
+</body>
+
+
+</html>
